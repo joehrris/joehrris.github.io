@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Redirecting...</title>
+		<meta http-equiv="refresh" content="0;url=.//wp-content/plugins/royal-elementor-addons/assets/css/lib/lightgallery/img/video-play.png/?simply_static_page=97">
+	</head>
+	<body>
+		<script type="text/javascript">
+			window.location = ".//wp-content/plugins/royal-elementor-addons/assets/css/lib/lightgallery/img/video-play.png/?simply_static_page=97";
+		</script>
+
+		<p>You are being redirected to <a href=".//wp-content/plugins/royal-elementor-addons/assets/css/lib/lightgallery/img/video-play.png/?simply_static_page=97">.//wp-content/plugins/royal-elementor-addons/assets/css/lib/lightgallery/img/video-play.png/?simply_static_page=97</a></p>
+	</body>
+</html>
