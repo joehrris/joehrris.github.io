@@ -1,1 +1,178 @@
-test text Test Text
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post Title - Your Blog Name</title>
+    <style>
+        :root {
+            --background: #000000;
+            --text: #ffffff;
+            --text-light: #a3a3a3;
+            --border: #333333;
+            --hover: #cccccc;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--background);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .post-header {
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 2rem;
+        }
+
+        .post-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .post-meta {
+            font-size: 0.975rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .post-content {
+            font-size: 1.125rem;
+        }
+
+        .post-content h2 {
+            font-size: 1.875rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+            letter-spacing: -0.5px;
+        }
+
+        .post-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .post-content a {
+            color: var(--text);
+            text-decoration: none;
+            border-bottom: 1px solid var(--text);
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .post-content a:hover {
+            color: var(--hover);
+            border-bottom-color: var(--hover);
+        }
+
+        .post-content img {
+            max-width: 100%;
+            height: auto;
+            margin: 2rem 0;
+            border: 1px solid var(--border);
+        }
+
+        .post-content blockquote {
+            border-left: 2px solid var(--text);
+            margin: 2rem 0;
+            padding-left: 1.5rem;
+            font-style: italic;
+            color: var(--text-light);
+        }
+
+        .post-content code {
+            background: var(--border);
+            padding: 0.2rem 0.4rem;
+            font-size: 0.875em;
+            color: var(--text);
+        }
+
+        .post-content pre {
+            background: var(--border);
+            padding: 1.5rem;
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+
+        .post-content pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .post-content ul, .post-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .post-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .post-content hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 2rem 0;
+        }
+
+        ::selection {
+            background: var(--text);
+            color: var(--background);
+        }
+    </style>
+</head>
+<body>
+    <main class="container">
+        <article>
+            <header class="post-header">
+                <h1 class="post-title">Your Blog Post Title</h1>
+                <div class="post-meta">
+                    <time datetime="2024-10-02">October 2, 2024</time> • 5 min read
+                </div>
+            </header>
+
+            <div class="post-content">
+                <p>Start writing your blog post here. This template includes styles for all the common elements you might need in a blog post.</p>
+
+                <h2>Example Heading</h2>
+                <p>This is an example paragraph with a <a href="#">link</a>. The template includes styles for:</p>
+                
+                <ul>
+                    <li>Headers (h1 through h6)</li>
+                    <li>Paragraphs with good spacing</li>
+                    <li>Links with subtle hover effects</li>
+                    <li>Images with proper scaling</li>
+                    <li>Code blocks and inline code</li>
+                    <li>Blockquotes</li>
+                    <li>Lists (ordered and unordered)</li>
+                </ul>
+
+                <blockquote>
+                    This is an example blockquote. It's styled with a left border and italic text.
+                </blockquote>
+
+                <p>Here's an example of how the template handles images:</p>
+                <img src="/api/placeholder/800/400" alt="Example image">
+
+                <h2>Code Example</h2>
+                <p>Here's how code blocks look:</p>
+                <pre><code>function example() {
+    return "Hello, World!";
+}</code></pre>
+
+                <p>And here's how <code>inline code</code> looks within a paragraph.</p>
+            </div>
+        </article>
+    </main>
+</body>
+</html>
