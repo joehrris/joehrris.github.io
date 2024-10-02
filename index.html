@@ -3,9 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joe Harris | Digital Entrepreneur & Teacher</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>Joe Harris - Digital Entrepreneur & Computer Science Teacher | Personal Website</title>
+    <meta name="description" content="Personal website of Joe Harris, a Computer Science graduate and aspiring teacher. Sharing insights on technology, education, and entrepreneurship through blog posts and professional experiences.">
+    <meta name="keywords" content="Joe Harris, Computer Science Teacher, Digital Entrepreneur, Technology Education, Programming">
+    <meta name="author" content="Joe Harris">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Joe Harris - Digital Entrepreneur & Teacher">
+    <meta property="og:description" content="Computer Science graduate sharing insights on technology, education, and entrepreneurship.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourwebsite.com">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://yourwebsite.com">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/inter/3.19.3/inter.css">
     <style>
+        /* Your existing styles remain unchanged */
         body {
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
@@ -146,35 +165,51 @@
     <nav>
         <div class="nav-content">
             <h1 class="site-title">Joe Harris</h1>
-            <ul class="nav-links">
-                <li><a href="blog.html">Blog Archives</a></li>
-                <li><a href="cv.html">CV</a></li>
-                <li><a href="about.html">About Me</a></li>
+            <ul class="nav-links" role="navigation" aria-label="Main navigation">
+                <li><a href="blog.html" title="Read my blog posts">Blog Archives</a></li>
+                <li><a href="cv.html" title="View my CV">CV</a></li>
+                <li><a href="about.html" title="Learn more about me">About Me</a></li>
             </ul>
         </div>
     </nav>
 
-    <div class="container">
+    <main class="container">
         <section class="hero">
-            <h1>Welcome to My Space</h1>
-            <p>I made this website to allow myself a space to talk about my professional development and things that interest me. I'm a Computer Science graduate and I'm currently training to become a computer science teacher. I have aspirations to run a business as well as an enjoyment in content creation, I hope you enjoy my writing and potentially find interests we can share together in my work.</p>
+            <h1>Digital Entrepreneur & Computer Science Teacher</h1>
+            <p>I'm a Computer Science graduate passionate about education and technology. Through this space, I share my journey in teaching, entrepreneurship, and content creation. Join me as I explore the intersection of technology and education while building my professional path.</p>
         </section>
 
         <section class="recent-posts">
             <h2>Recent Posts</h2>
             <div class="post-preview">
                 <h3><a href="posts/first-post.html">Your Latest Blog Post Title</a></h3>
-                <div class="date">January 1, 2024</div>
+                <div class="date"><time datetime="2024-01-01">January 1, 2024</time></div>
             </div>
             <div class="post-preview">
                 <h3><a href="posts/second-post.html">Another Blog Post Title</a></h3>
-                <div class="date">December 25, 2023</div>
+                <div class="date"><time datetime="2023-12-25">December 25, 2023</time></div>
             </div>
         </section>
-    </div>
+    </main>
 
     <footer>
-        <p>&copy; 2024 Joe Harris</p>
+        <p>&copy; 2024 Joe Harris. All rights reserved.</p>
     </footer>
+
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "Person",
+        "name": "Joe Harris",
+        "jobTitle": ["Computer Science Teacher", "Digital Entrepreneur"],
+        "description": "Computer Science graduate and aspiring teacher with interests in technology education and entrepreneurship.",
+        "url": "https://yourwebsite.com",
+        "sameAs": [
+            "https://linkedin.com/in/yourprofile",
+            "https://twitter.com/yourhandle"
+        ]
+    }
+    </script>
 </body>
 </html>
