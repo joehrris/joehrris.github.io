@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me - Joe Harris</title>
+    <style>
+        :root {
+            --background: #1a1a1a;
+            --text: #e0e0e0;
+            --text-light: #888888;
+            --border: #333333;
+            --accent: #4a90e2;
+            --hover: #6ab0ff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            line-height: 1.8;
+            color: var(--text);
+            background: var(--background);
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .post-header {
+            margin-bottom: 3rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .post-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .post-content {
+            font-size: 1.1rem;
+        }
+
+        .post-content > div {
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .post-content a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .post-content a:hover {
+            color: var(--hover);
+            border-bottom-color: var(--hover);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            color: var(--text);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .post-title {
+                font-size: 1.8rem;
+            }
+
+            .post-content {
+                font-size: 1rem;
+            }
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <main class="container">
+        <article>
+            <header class="post-header">
+                <h1 class="post-title">About Me</h1>
+            </header>
+
+            <div class="post-content">
+                <div>
+                    Hey there! I'm Joe, a passionate educator currently navigating the world of teaching and personal growth. Originally from the UK, I'm on a journey of professional development and self-discovery.<br><br>
+                    By day, I'm a teacher working hard to make a difference in my students' lives. By night, I'm exploring my interests, spending time with friends, and continuously learning. I believe in breaking down personal barriers and challenging myself to grow beyond what I thought was possible.<br><br>
+                    When I'm not in the classroom, you can find me enjoying time with friends, playing games, or reflecting on life's interesting journey. I'm a big believer in the power of relationships, personal development, and finding joy in the everyday moments.<br><br>
+                    Feel free to connect with me on these platforms:
+                </div>
+
+                <div class="social-links">
+                    <a href="#">GitHub</a>
+                    <a href="#">LinkedIn</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">Email</a>
+                </div>
+            </div>
+        </article>
+    </main>
+</body>
+</html>
