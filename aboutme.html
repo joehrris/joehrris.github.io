@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --primary-color: #C963FF;
+            --text-color: #FFFFFF;
+            --text-muted: #AAAAAA;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            padding: 20px 40px;
+            background: #1A1A1A;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        header nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .about {
+            flex: 1; /* Allows the section to expand and balance between header and footer */
+            display: flex; /* Flexbox on the section itself */
+            flex-direction: column; /* Center content vertically */
+            justify-content: center; /* Center content vertically within the available space */
+            align-items: center; /* Center content horizontally */
+            text-align: center; /* Center-align text */
+            padding: 20px; /* Add padding to prevent content from touching edges */
+        }
+
+        .about h1 {
+            font-size: 3rem; /* Increased size for the heading */
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .about img {
+            width: 250px; /* Increased width for the profile image */
+            height: 250px; /* Increased height for the profile image */
+            border-radius: 50%;
+            margin: 20px 0;
+            border: 4px solid var(--primary-color);
+        }
+
+        .about p {
+            font-size: 1.5rem; /* Increased font size for paragraphs */
+            color: var(--text-muted);
+            margin: 20px 0;
+            max-width: 800px; /* Keeps text from stretching too wide */
+        }
+
+
+        footer {
+            padding: 20px 40px;
+            text-align: center;
+            background: #1A1A1A;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Joe Harris.</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="aboutme.html">About Me</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section class="about">
+        <h1>About Me</h1>
+        <img src="profile.jpg" alt="Joe Harris Profile Picture">
+        <p>
+            Hello! I'm Joe Harris, a passionate teacher, coding enthusiast, and storyteller. I created this space to share my experiences, projects, and thoughts with the world. 
+        </p>
+        <p>
+            When I'm not teaching or coding, you might find me exploring new hobbies, reading books, or simply enjoying some downtime by playing some games. I believe in the power of creativity and curiosity to transform lives and that we as educators have a responability to nurture this. 
+        </p>
+        <p>
+            This portfolio showcases some of my projects and blog posts that reflect my journey, challenges, and successes. Thank you for stopping by!
+        </p>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Joe Harris. Built with Rage ♥</p>
+    </footer>
+</body>
+</html>
