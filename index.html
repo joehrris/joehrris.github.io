@@ -59,6 +59,18 @@
         .hero h1 {
             font-size: 3rem;
             margin-bottom: 20px;
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+            position: relative;
+        }
+
+        .hero h1 .caret {
+            position: absolute;
+            right: 0;
+            width: 1px;
+            background-color: var(--text-color);
+            animation: blink-caret 0.75s step-end infinite;
         }
 
         .hero p {
@@ -133,6 +145,17 @@
             color: var(--primary-color);
             text-decoration: none;
         }
+
+        /* Typing animation keyframes */
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        /* Blinking cursor */
+        @keyframes blink-caret {
+            50% { border-color: transparent; }
+        }
     </style>
 </head>
 <body>
@@ -147,11 +170,9 @@
 
     <section class="hero">
         <div class="hero-content">
-            <h1>Welcome to my corner of the internet.</h1>
+            <h1 id="hero-text"></h1>
             <p>Hey there! - Welcome to my personal portfolio & blog which covers things I do in my day to day life, my thoughts, emotions, struggles and how I over-came them. I also have a personal passion for coding and making cool things for people to enjoy so at some point in the future I'll populate that section with some of my personal projects. In my day to day I'm actually a full time teacher which let me tell you, gives you a lot of stories. If you like what you read or need to get in contact with me regarding any of my sites content then please contact me on Joehrris@icloud.com.</p>
-            <a href="aboutme.html">
-          <button>Learn More</button>
-            </a>
+            <button>Learn More</button>
         </div>
     </section>
 
@@ -197,9 +218,51 @@
     </div>
 </section>
 
-
     <footer>
         <p>&copy; 2024 Joe Harris. Built with Rage ♥ </p>
     </footer>
+
+    <script>
+        // Typing animation content
+        const texts = [
+            "Welcome to my corner of the internet.",
+            "Hope you enjoy your stay.",
+            "Joe Harris, Computer Science Teacher"
+        ];
+
+        let index = 0;
+        let charIndex = 0;
+        let currentText = '';
+        const heroTextElement = document.getElementById('hero-text');
+
+        function typeText() {
+            currentText = texts[index];
+            heroTextElement.textContent = currentText.slice(0, charIndex);
+            heroTextElement.innerHTML += '<span class="caret">|</span>'; // Add caret
+            if (charIndex < currentText.length) {
+                charIndex++;
+                setTimeout(typeText, 100);  // Typing speed
+            } else {
+                setTimeout(deleteText, 1000);  // Wait before deleting
+            }
+        }
+
+        function deleteText() {
+            const caret = document.querySelector('.caret');
+            if (charIndex > 0) {
+                charIndex--;
+                heroTextElement.textContent = currentText.slice(0, charIndex);
+                heroTextElement.innerHTML += '<span class="caret">|</span>'; // Keep caret visible
+                setTimeout(deleteText, 50);  // Deleting speed
+            } else {
+                caret.remove();  // Remove caret before starting next
+                index = (index + 1) % texts.length;  // Loop through the texts
+                setTimeout(typeText, 500);  // Wait before starting the next typing
+            }
+        }
+
+        // Start typing animation
+        typeText();
+    </script>
 </body>
 </html>
