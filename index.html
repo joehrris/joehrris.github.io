@@ -34,6 +34,10 @@
             align-items: center;
         }
 
+        header nav {
+            display: flex;
+        }
+
         header nav a {
             text-decoration: none;
             color: var(--text-color);
@@ -58,26 +62,28 @@
         }
 
         .hero h1 {
-            font-size: 3rem;
+            font-size: clamp(1.5rem, 5vw, 3rem);
             margin-bottom: 20px;
-            white-space: nowrap;
-            overflow: hidden;
+            min-height: 3.5rem;
             display: inline-block;
             position: relative;
+            overflow: hidden;
         }
 
         .hero h1 .caret {
             position: absolute;
-            right: 0;
-            width: 1px;
+            right: -2px;
+            height: 100%;
+            width: 2px;
             background-color: var(--text-color);
             animation: blink-caret 0.75s step-end infinite;
         }
 
         .hero p {
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 3vw, 1.2rem);
             margin-bottom: 30px;
             color: var(--text-muted);
+            padding: 0 20px;
         }
 
         .hero button {
@@ -104,12 +110,14 @@
             text-align: center;
             margin-bottom: 30px;
             color: var(--primary-color);
+            font-size: clamp(1.5rem, 4vw, 2rem);
         }
 
         .portfolio .projects, .blog .posts {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
+            padding: 0 10px;
         }
 
         .portfolio .project, .blog .post {
@@ -147,86 +155,182 @@
             text-decoration: none;
         }
 
-        /* Typing animation keyframes */
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
+        @keyframes blink-caret {
+            50% { opacity: 0; }
         }
 
-        /* Blinking cursor */
-        @keyframes blink-caret {
-            50% { border-color: transparent; }
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            header nav {
+                display: none;
+            }
+
+            header {
+                justify-content: center;
+            }
+
+            .hero {
+                padding: 60px 10px;
+            }
+
+            .hero h1 {
+                max-width: 90vw;
+                margin: 0 auto 20px;
+            }
+        }
+
+        /* Transition styles */
+        .transition-overlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: var(--primary-color);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            visibility: hidden;
+            z-index: 1000;
+            transition: all 0.6s ease-in-out;
+            pointer-events: none;
+        }
+
+        .transition-overlay.active {
+            width: 4000px;
+            height: 4000px;
+            visibility: visible;
+        }
+
+        .content-wrapper {
+            opacity: 1;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .content-wrapper.fade-out {
+            opacity: 0;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Joe Harris.</h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="#contact">Contact</a>
-            <a href="aboutme.html">About Me</a>
-        </nav>
-    </header>
+    <!-- Add transition overlay -->
+    <div class="transition-overlay"></div>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1 id="hero-text"></h1>
-            <p>Hey there! - Welcome to my personal portfolio & blog which covers things I do in my day to day life, my thoughts, emotions, struggles and how I over-came them. I also have a personal passion for coding and making cool things for people to enjoy so at some point in the future I'll populate that section with some of my personal projects. In my day to day I'm actually a full time teacher which let me tell you, gives you a lot of stories. If you like what you read or need to get in contact with me regarding any of my sites content then please contact me on Joehrris@icloud.com.</p>
-            <a href="aboutme.html">
-            <button>Learn More</button>
-            </a>
-        </div>
-    </section>
+    <!-- Wrap all content in content-wrapper -->
+    <div class="content-wrapper">
+        <header>
+            <h1>Joe Harris.</h1>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="#contact">Contact</a>
+                <a href="aboutme.html">About Me</a>
+            </nav>
+        </header>
 
-    <section id="portfolio" class="portfolio">
-        <h2>< Portfolio Projects ></h2>
-        <div class="projects">
-            <div class="project">
-                <h3>Project One</h3>
-                <p>Coming Soon!</p>
+        <section class="hero">
+            <div class="hero-content">
+                <h1 id="hero-text"></h1>
+                <p>Hey there! - Welcome to my personal portfolio & blog which covers things I do in my day to day life, my thoughts, emotions, struggles and how I over-came them. I also have a personal passion for coding and making cool things for people to enjoy so at some point in the future I'll populate that section with some of my personal projects. In my day to day I'm actually a full time teacher which let me tell you, gives you a lot of stories. If you like what you read or need to get in contact with me regarding any of my sites content then please contact me on Joehrris@icloud.com.</p>
+                <button>Learn More</button>
             </div>
-            <div class="project">
-                <h3>Project Two</h3>
-                <p>Coming Soon!</p>
-            </div>
-            <div class="project">
-                <h3>Project Three</h3>
-                <p>Coming Soon!</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="blog" class="blog">
-    <h2>< Blog Posts ></h2>
-    <div class="posts">
-        <div class="post">
-            <a href="blog-post-one.html" style="text-decoration: none; color: inherit;">
-                <h3>Blog Post One</h3>
-                <p>Coming Soon!</p>
-            </a>
-        </div>
-        <div class="post">
-            <a href="blog-post-two.html" style="text-decoration: none; color: inherit;">
-                <h3>Blog Post Two</h3>
-                <p>Coming Soon!</p>
-            </a>
-        </div>
-        <div class="post">
-            <a href="blog-post-three.html" style="text-decoration: none; color: inherit;">
-                <h3>Blog Post Three</h3>
-                <p>Coming Soon!</p>
-            </a>
-        </div>
+        <section id="portfolio" class="portfolio">
+            <h2>< Portfolio Projects ></h2>
+            <div class="projects">
+                <div class="project">
+                    <h3>Project One</h3>
+                    <p>Coming Soon!</p>
+                </div>
+                <div class="project">
+                    <h3>Project Two</h3>
+                    <p>Coming Soon!</p>
+                </div>
+                <div class="project">
+                    <h3>Project Three</h3>
+                    <p>Coming Soon!</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="blog" class="blog">
+            <h2>< Blog Posts ></h2>
+            <div class="posts">
+                <div class="post">
+                    <a href="blogpost1.html" style="text-decoration: none; color: inherit;">
+                        <h3>Blog Post One</h3>
+                        <p>Coming Soon!</p>
+                    </a>
+                </div>
+                <div class="post">
+                    <a href="blog-post-two.html" style="text-decoration: none; color: inherit;">
+                        <h3>Blog Post Two</h3>
+                        <p>Coming Soon!</p>
+                    </a>
+                </div>
+                <div class="post">
+                    <a href="blog-post-three.html" style="text-decoration: none; color: inherit;">
+                        <h3>Blog Post Three</h3>
+                        <p>Coming Soon!</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2024 Joe Harris. Built with Rage ♥ </p>
+        </footer>
     </div>
-</section>
 
-    <footer>
-        <p>&copy; 2024 Joe Harris. Built with Rage ♥ </p>
-    </footer>
-
+    <!-- Add transition script -->
     <script>
-        // Typing animation content
+        document.addEventListener('DOMContentLoaded', function() {
+            const transitionLinks = document.querySelectorAll('a[href]:not([href^="#"])');
+            const transitionOverlay = document.querySelector('.transition-overlay');
+            const contentWrapper = document.querySelector('.content-wrapper');
+
+            transitionLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = this.href;
+
+                    // Start fade out
+                    contentWrapper.classList.add('fade-out');
+
+                    // Trigger circle transition
+                    setTimeout(() => {
+                        transitionOverlay.classList.add('active');
+                    }, 300);
+
+                    // Navigate to new page
+                    setTimeout(() => {
+                        window.location.href = target;
+                    }, 900);
+                });
+            });
+
+            // Handle page load transition
+            window.addEventListener('pageshow', function(event) {
+                if (event.persisted) {
+                    transitionOverlay.classList.remove('active');
+                    contentWrapper.classList.remove('fade-out');
+                }
+            });
+
+            // Initial page load animation
+            if (document.visibilityState === 'visible') {
+                transitionOverlay.style.visibility = 'visible';
+                transitionOverlay.classList.add('active');
+                
+                setTimeout(() => {
+                    transitionOverlay.classList.remove('active');
+                    contentWrapper.classList.remove('fade-out');
+                }, 500);
+            }
+        });
+    </script>
+
+    <!-- Typing animation script -->
+    <script>
         const texts = [
             "Welcome to my corner of the internet.",
             "Hope you enjoy your stay.",
@@ -239,28 +343,33 @@
         const heroTextElement = document.getElementById('hero-text');
 
         function typeText() {
+            if (!heroTextElement) return;
+            
             currentText = texts[index];
-            heroTextElement.textContent = currentText.slice(0, charIndex);
-            heroTextElement.innerHTML += '<span class="caret">|</span>'; // Add caret
+            const displayText = currentText.slice(0, charIndex);
+            heroTextElement.textContent = displayText;
+            heroTextElement.innerHTML += '<span class="caret">|</span>';
+            
             if (charIndex < currentText.length) {
                 charIndex++;
-                setTimeout(typeText, 100);  // Typing speed
+                requestAnimationFrame(() => setTimeout(typeText, 100));
             } else {
-                setTimeout(deleteText, 1000);  // Wait before deleting
+                setTimeout(deleteText, 1000);
             }
         }
 
         function deleteText() {
-            const caret = document.querySelector('.caret');
+            if (!heroTextElement) return;
+            
             if (charIndex > 0) {
                 charIndex--;
-                heroTextElement.textContent = currentText.slice(0, charIndex);
-                heroTextElement.innerHTML += '<span class="caret">|</span>'; // Keep caret visible
-                setTimeout(deleteText, 50);  // Deleting speed
+                const displayText = currentText.slice(0, charIndex);
+                heroTextElement.textContent = displayText;
+                heroTextElement.innerHTML += '<span class="caret">|</span>';
+                requestAnimationFrame(() => setTimeout(deleteText, 50));
             } else {
-                caret.remove();  // Remove caret before starting next
-                index = (index + 1) % texts.length;  // Loop through the texts
-                setTimeout(typeText, 500);  // Wait before starting the next typing
+                index = (index + 1) % texts.length;
+                setTimeout(typeText, 500);
             }
         }
 
@@ -268,22 +377,18 @@
         typeText();
     </script>
     
-    
     <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Joe Harris",
-  "jobTitle": "Teacher",
-  "affiliation": {
-    "@type": "Organization",
-    "name": "Nottingham School"
-  },
-  "url": "https://joeharris.co"
-}
-</script>
-
-    
-    
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Joe Harris",
+      "jobTitle": "Teacher",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Nottingham School"
+      },
+      "url": "https://joeharris.co"
+    }
+    </script>
 </body>
 </html>
