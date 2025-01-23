@@ -69,19 +69,26 @@
             margin: 80px auto 20px;
             padding: 20px;
             flex: 1;
+            position: relative;
+        }
+        #projects-carousel {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
         }
         #projects {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            display: flex;
+            transition: transform 0.5s ease;
         }
         .project-card {
+            flex: 0 0 100%;
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             overflow: hidden;
             transition: transform 0.3s ease;
             border: 1px solid var(--secondary-color);
+            padding: 0 20px;
         }
         .project-card:hover {
             transform: translateY(-10px);
@@ -116,6 +123,25 @@
             background-color: var(--primary-color);
             color: white;
         }
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+        .carousel-nav button {
+            background-color: rgba(106, 13, 173, 0.7);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .carousel-nav button:hover {
+            background-color: var(--primary-color);
+        }
         footer {
             background-color: var(--primary-color);
             color: white;
@@ -138,38 +164,44 @@
     </nav>
 
     <div class="container">
-        <section id="projects">
-            <div class="project-card">
-                <div class="project-card-content">
-                    <h2>Project One</h2>
-                    <p>A web application demonstrating advanced frontend techniques with modern design principles.</p>
-                    <div class="project-links">
-                        <a href="#">View Details</a>
-                        <a href="#">GitHub</a>
+        <div id="projects-carousel">
+            <div id="projects">
+                <div class="project-card">
+                    <div class="project-card-content">
+                        <h2>Project One</h2>
+                        <p>A web application demonstrating advanced frontend techniques with modern design principles. A web application demonstrating advanced frontend techniques with modern design principles. A web application demonstrating advanced frontend techniques with modern design principles. A web application demonstrating advanced frontend techniques with modern design principles.</p>
+                        <div class="project-links">
+                            <a href="#">View Details</a>
+                            <a href="#">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-card-content">
+                        <h2>Project Two</h2>
+                        <p>A backend service with robust API architecture, ensuring scalability and performance optimization.</p>
+                        <div class="project-links">
+                            <a href="#">View Details</a>
+                            <a href="#">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-card-content">
+                        <h2>Project Three</h2>
+                        <p>An interactive data visualization tool leveraging modern web technologies for dynamic insights.</p>
+                        <div class="project-links">
+                            <a href="#">View Details</a>
+                            <a href="#">GitHub</a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="project-card">
-                <div class="project-card-content">
-                    <h2>Project Two</h2>
-                    <p>A backend service with robust API architecture, ensuring scalability and performance optimization.</p>
-                    <div class="project-links">
-                        <a href="#">View Details</a>
-                        <a href="#">GitHub</a>
-                    </div>
-                </div>
+            <div class="carousel-nav">
+                <button id="prevBtn">&lt; Previous</button>
+                <button id="nextBtn">Next &gt;</button>
             </div>
-            <div class="project-card">
-                <div class="project-card-content">
-                    <h2>Project Three</h2>
-                    <p>An interactive data visualization tool leveraging modern web technologies for dynamic insights.</p>
-                    <div class="project-links">
-                        <a href="#">View Details</a>
-                        <a href="#">GitHub</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+        </div>
     </div>
 
     <footer>
@@ -177,12 +209,26 @@
     </footer>
 
     <script>
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+        document.addEventListener('DOMContentLoaded', () => {
+            const projectsContainer = document.getElementById('projects');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const projectCards = document.querySelectorAll('.project-card');
+            let currentIndex = 0;
+
+            function updateCarousel() {
+                const offset = -currentIndex * 100;
+                projectsContainer.style.transform = `translateX(${offset}%)`;
+            }
+
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % projectCards.length;
+                updateCarousel();
+            });
+
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + projectCards.length) % projectCards.length;
+                updateCarousel();
             });
         });
     </script>
