@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Joe Harris</title>
+    <style>
+        :root {
+            --primary-color: #6a0dad;
+            --secondary-color: #9932cc;
+            --background-color: #f4f4f4;
+            --text-color: #333;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+        }
+        nav {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        nav .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        nav ul li {
+            margin-left: 20px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 80px auto 20px;
+            padding: 20px;
+            flex: 1;
+        }
+        #projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .project-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            border: 1px solid var(--secondary-color);
+        }
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        .project-card-content {
+            padding: 20px;
+        }
+        .project-card h2 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        .project-card p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .project-links {
+            display: flex;
+            justify-content: space-between;
+        }
+        .project-links a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: bold;
+            transition: color 0.3s ease;
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: 1px solid var(--primary-color);
+        }
+        .project-links a:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="logo">Joe Harris.</div>
+            <ul>
+                <li><a href="index.html">Projects</a></li>
+                <li><a href="aboutme.html">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section id="projects">
+            <div class="project-card">
+                <div class="project-card-content">
+                    <h2>Project One</h2>
+                    <p>A web application demonstrating advanced frontend techniques with modern design principles.</p>
+                    <div class="project-links">
+                        <a href="#">View Details</a>
+                        <a href="#">GitHub</a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-card-content">
+                    <h2>Project Two</h2>
+                    <p>A backend service with robust API architecture, ensuring scalability and performance optimization.</p>
+                    <div class="project-links">
+                        <a href="#">View Details</a>
+                        <a href="#">GitHub</a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-card-content">
+                    <h2>Project Three</h2>
+                    <p>An interactive data visualization tool leveraging modern web technologies for dynamic insights.</p>
+                    <div class="project-links">
+                        <a href="#">View Details</a>
+                        <a href="#">GitHub</a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-card-content">
+                    <h2>Project Four</h2>
+                    <p>An interactive data visualization tool leveraging modern web technologies for dynamic insights.</p>
+                    <div class="project-links">
+                        <a href="#">View Details</a>
+                        <a href="#">GitHub</a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-card-content">
+                    <h2>Project Five</h2>
+                    <p>An interactive data visualization tool leveraging modern web technologies for dynamic insights.</p>
+                    <div class="project-links">
+                        <a href="#">View Details</a>
+                        <a href="#">GitHub</a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-card-content">
+                    <h2>Project Six</h2>
+                    <p>An interactive data visualization tool leveraging modern web technologies for dynamic insights.</p>
+                    <div class="project-links">
+                        <a href="#">View Details</a>
+                        <a href="#">GitHub</a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-card-content">
+                    <h2>Project Seven</h2>
+                    <p>An interactive data visualization tool leveraging modern web technologies for dynamic insights.</p>
+                    <div class="project-links">
+                        <a href="#">View Details</a>
+                        <a href="#">GitHub</a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-card-content">
+                    <h2>Project Eight</h2>
+                    <p>An interactive data visualization tool leveraging modern web technologies for dynamic insights.</p>
+                    <div class="project-links">
+                        <a href="#">View Details</a>
+                        <a href="#">GitHub</a>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-card-content">
+                    <h2>Project Nine</h2>
+                    <p>An interactive data visualization tool leveraging modern web technologies for dynamic insights.</p>
+                    <div class="project-links">
+                        <a href="#">View Details</a>
+                        <a href="#">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        © 2025 Joe Harris All Rights Reserved.
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
