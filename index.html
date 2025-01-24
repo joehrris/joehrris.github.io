@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Added for mobile optimization -->
     <title>Joe Harris</title>
     <style>
         :root {
@@ -64,6 +65,12 @@
         nav ul li a:hover {
             color: var(--primary-color);
         }
+
+        /* Mobile Navigation */
+        nav .menu-toggle {
+            display: none;
+        }
+
         .container {
             width: 90%;
             max-width: 1200px;
@@ -72,6 +79,7 @@
             flex: 1;
             position: relative;
         }
+
         #projects-carousel {
             position: relative;
             overflow: hidden;
@@ -274,6 +282,40 @@
             padding: 15px 0;
             width: 100%;
         }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 60px;
+                background-color: white;
+                left: 0;
+            }
+            nav .menu-toggle {
+                display: block;
+                cursor: pointer;
+                font-size: 1.5em;
+            }
+            nav ul li {
+                margin: 15px 0;
+                text-align: center;
+            }
+            .tutoring-services {
+                flex-direction: column;
+                align-items: center;
+            }
+            .service-card {
+                flex-basis: 80%;
+                margin-bottom: 20px;
+            }
+            .testimonial-grid {
+                grid-template-columns: 1fr; /* Single column layout for small screens */
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -285,6 +327,7 @@
                 <li><a href="aboutme.html">About</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+            <div class="menu-toggle" id="menu-toggle">&#9776;</div>
         </div>
     </nav>
 
@@ -347,42 +390,41 @@
                 </div>
             </div>
             <a href="https://calendly.com/joehrris-8fui/30min" class="cta-button" target="_blank">Book a Session</a>
-
         </section>
 
         <!-- Testimonials Section -->
-<section class="testimonials-section">
-    <h2>What Parents Are Saying</h2>
-    <div class="testimonial-grid">
-        <div class="testimonial-card">
-            <p>"Joe helped my daughter, Lily, improve her computer science skills immensely. She struggled at first, but after a few lessons with Joe, her confidence grew and she started excelling in her GCSE exams. We couldn't be more grateful!"</p>
-            <div class="testimonial-author">
-                <div class="testimonial-author-info">
-                    <h4>Sarah Thompson</h4>
-                    <span>Mother of Lily, GCSE Student</span>
+        <section class="testimonials-section">
+            <h2>What Parents Are Saying</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p>"Joe helped my daughter, Lily, improve her computer science skills immensely. She struggled at first, but after a few lessons with Joe, her confidence grew and she started excelling in her GCSE exams. We couldn't be more grateful!"</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-author-info">
+                            <h4>Sarah Thompson</h4>
+                            <span>Mother of Lily, GCSE Student</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"As a parent, it's hard to find someone who truly connects with your child and understands how they learn best. Joe was able to do just that with my son, Ben. His passion for computer science really helped Ben enjoy the subject and gain an A* in his A-Level exams." </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-author-info">
+                            <h4>David Williams</h4>
+                            <span>Father of Ben, A-Level Student</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"We are so thankful for Joe's tutoring. My daughter, Emily, struggled with the programming aspects of her GCSE course, but Joe's approach made it click. Emily ended up coming out with a grade she was proud of, and I couldn't have asked for more!"</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-author-info">
+                            <h4>Linda Rogers</h4>
+                            <span>Mother of Emily, GCSE Student</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="testimonial-card">
-            <p>"As a parent, it's hard to find someone who truly connects with your child and understands how they learn best. Joe was able to do just that with my son, Ben. His passion for computer science really helped Ben enjoy the subject and gain an A* in his A-Level exams." </p>
-            <div class="testimonial-author">
-                <div class="testimonial-author-info">
-                    <h4>David Williams</h4>
-                    <span>Father of Ben, A-Level Student</span>
-                </div>
-            </div>
-        </div>
-        <div class="testimonial-card">
-            <p>"We are so thankful for Joe's tutoring. My daughter, Emily, struggled with the programming aspects of her GCSE course, but Joe's approach made it click. Emily ended up coming out with a grade she was proud of, and I couldn't have asked for more!"</p>
-            <div class="testimonial-author">
-                <div class="testimonial-author-info">
-                    <h4>Linda Rogers</h4>
-                    <span>Mother of Emily, GCSE Student</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+        </section>
     </div>
 
     <footer>
@@ -414,6 +456,13 @@
 
             // Set initial transform for carousel on page load
             updateCarousel();
+
+            // Mobile menu toggle
+            const menuToggle = document.getElementById('menu-toggle');
+            const navLinks = document.querySelector('nav ul');
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('open');
+            });
         });
     </script>
 </body>
