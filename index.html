@@ -74,69 +74,61 @@
         /* Bubble styling */
         .bubble {
             position: absolute;
-            border-radius: 50%;
             background: rgba(139, 92, 246, 0.1);
             animation: float 12s linear infinite;
             z-index: 1;
         }
 
-        .content {
-            max-width: 800px;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        .bubble:nth-child(1) { 
+        .section1 .bubble:nth-child(1) { 
             width: 80px; height: 80px; 
             left: 10%; 
             animation-duration: 10s; 
             bottom: -20%;
         }
-        .bubble:nth-child(2) { 
+        .section1 .bubble:nth-child(2) { 
             width: 60px; height: 60px; 
             left: 20%; 
             animation-duration: 8s; 
             bottom: -40%;
         }
-        .bubble:nth-child(3) { 
+        .section1 .bubble:nth-child(3) { 
             width: 40px; height: 40px; 
             left: 35%; 
             animation-duration: 12s; 
             bottom: -60%;
         }
-        .bubble:nth-child(4) { 
+        .section1 .bubble:nth-child(4) { 
             width: 70px; height: 70px; 
             left: 50%; 
             animation-duration: 9s; 
             bottom: -30%;
         }
-        .bubble:nth-child(5) { 
+        .section1 .bubble:nth-child(5) { 
             width: 50px; height: 50px; 
             left: 65%; 
             animation-duration: 11s; 
             bottom: -50%;
         }
-        .bubble:nth-child(6) { 
+        .section1 .bubble:nth-child(6) { 
             width: 90px; height: 90px; 
             left: 80%; 
             animation-duration: 13s; 
             bottom: -10%;
         }
 
-        .bubble:nth-child(7) { 
+        .section1 .bubble:nth-child(7) { 
             width: 45px; height: 45px; 
             left: 25%; 
             animation-duration: 14s; 
             bottom: -80%;
         }
-        .bubble:nth-child(8) { 
+        .section1 .bubble:nth-child(8) { 
             width: 75px; height: 75px; 
             left: 45%; 
             animation-duration: 15s; 
             bottom: -90%;
         }
-        .bubble:nth-child(9) { 
+        .section1 .bubble:nth-child(9) { 
             width: 55px; height: 55px; 
             left: 75%; 
             animation-duration: 16s; 
@@ -152,6 +144,81 @@
                 transform: translateY(-120vh) rotate(360deg);
                 opacity: 0;
             }
+        }
+
+        /* Section 2 styling */
+        .section2 {
+            background-color: #ede5ff;
+            height: 400px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section2 .bubble {
+            position: absolute;
+            background: rgba(139, 92, 246, 0.1);
+            animation: float 12s linear infinite;
+            z-index: 1;
+        }
+
+        .section2 .bubble:nth-child(1) { 
+            width: 80px; height: 80px; 
+            left: 10%; 
+            animation-duration: 10s; 
+            bottom: -20%;
+        }
+        .section2 .bubble:nth-child(2) { 
+            width: 60px; height: 60px; 
+            left: 20%; 
+            animation-duration: 8s; 
+            bottom: -40%;
+        }
+        .section2 .bubble:nth-child(3) { 
+            width: 40px; height: 40px; 
+            left: 35%; 
+            animation-duration: 12s; 
+            bottom: -60%;
+        }
+        .section2 .bubble:nth-child(4) { 
+            width: 70px; height: 70px; 
+            left: 50%; 
+            animation-duration: 9s; 
+            bottom: -30%;
+        }
+        .section2 .bubble:nth-child(5) { 
+            width: 50px; height: 50px; 
+            left: 65%; 
+            animation-duration: 11s; 
+            bottom: -50%;
+        }
+        .section2 .bubble:nth-child(6) { 
+            width: 90px; height: 90px; 
+            left: 80%; 
+            animation-duration: 13s; 
+            bottom: -10%;
+        }
+
+        .section2 .bubble:nth-child(7) { 
+            width: 45px; height: 45px; 
+            left: 25%; 
+            animation-duration: 14s; 
+            bottom: -80%;
+        }
+        .section2 .bubble:nth-child(8) { 
+            width: 75px; height: 75px; 
+            left: 45%; 
+            animation-duration: 15s; 
+            bottom: -90%;
+        }
+        .section2 .bubble:nth-child(9) { 
+            width: 55px; height: 55px; 
+            left: 75%; 
+            animation-duration: 16s; 
+            bottom: -70%;
         }
 
         /* Profile Section Styling */
@@ -207,19 +274,6 @@
             margin-bottom: 1.5rem;
         }
 
-        .section2 {
-            background-color: #ede5ff;
-            height: 400px;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .content {
-            text-align: center;
-        }
-
         h1 {
             font-size: 2.8rem;
             margin-bottom: 2rem;
@@ -270,6 +324,7 @@
             color: #6d28d9;
             font-weight: 400;
         }
+
     </style>
 </head>
 <body>
@@ -283,10 +338,6 @@
     </nav>
 
     <section id="section1" class="section1">
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
-        <div class="bubble"></div>
         <div class="bubble"></div>
         <div class="bubble"></div>
         <div class="bubble"></div>
@@ -319,6 +370,16 @@
     </section>
 
     <section id="section2" class="section2">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        
         <div class="content">
             <h1>Qualifications</h1>
             <p>Here are some of my academic achievements and certifications:</p>
@@ -326,12 +387,12 @@
             <div class="qualifications-container">
                 <div class="qualification-card">
                     <h2 class="qualification-title">Undergraduate Degree</h2>
-                    <p class="qualification-details">BSc Computer Science, Nottingham Trent University (2020)</p>
+                    <p class="qualification-details">BSc in Computer Science, Nottingham Trent University (2018)</p>
                 </div>
 
                 <div class="qualification-card">
                     <h2 class="qualification-title">Master's Degree</h2>
-                    <p class="qualification-details">Application in progress</p>
+                    <p class="qualification-details">Application Pending...</p>
                 </div>
 
                 <div class="qualification-card">
@@ -345,7 +406,7 @@
     <section id="section3" class="section3">
         <div class="content">
             <h1>Coming Soon...</h1>
-            <p>Coming Soon...</p>
+            <p>What to put here...</p>
         </div>
     </section>
 </body>
