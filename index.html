@@ -184,7 +184,7 @@
                 </div>
                 <div class="flex items-center gap-4 sm:gap-6">
                     <div class="text-right hidden sm:block">
-                        <p class="text-[10px] text-cyan-500 font-cyber uppercase tracking-wider">Operative</p>
+                        <p id="role-display" class="text-[10px] text-cyan-500 font-cyber uppercase tracking-wider">Operative</p>
                         <p id="user-display" class="text-sm font-bold text-slate-200">user@email.com</p>
                     </div>
                     <!-- Admin Button: Now calls openAdminPanel() -->
@@ -322,6 +322,15 @@
                 isAdmin = true;
                 document.getElementById('admin-badge').classList.remove('hidden');
                 document.getElementById('admin-btn').classList.remove('hidden');
+                
+                // VISUAL UPDATE: Change "Operative" to "SYSTEM ADMIN"
+                const roleEl = document.getElementById('role-display');
+                if(roleEl) {
+                    roleEl.innerText = "SYSTEM ADMIN";
+                    roleEl.classList.remove('text-cyan-500');
+                    roleEl.classList.add('text-purple-400', 'glow-text');
+                }
+
                 // Re-fetch files now that we know we are admin (to show delete buttons)
                 fetchFiles();
                 // Re-load chat to show delete buttons on messages
@@ -340,7 +349,7 @@
                     appendMessage(payload.new);
                 })
                 .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'messages' }, payload => {
-                    // If the deleted message is currently on screen, remove it
+                    // Instantly remove message from UI when deleted
                     const el = document.getElementById(`msg-${payload.old.id}`);
                     if (el) el.remove();
                     
