@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberShare Secure Portal</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Google Fonts: Space Mono for that Cyber feel -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom "Cyber" Config */
+        :root {
+            --neon-cyan: #06b6d4;
+            --neon-purple: #a855f7;
+            --dark-bg: #0f172a;
+            --panel-bg: rgba(30, 41, 59, 0.7);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-bg);
+            background-image: 
+                linear-gradient(rgba(6, 182, 212, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(6, 182, 212, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .font-cyber {
+            font-family: 'Space Mono', monospace;
+        }
+
+        /* Animations */
+        .fade-in { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .loader {
+            border: 2px solid rgba(6, 182, 212, 0.3);
+            border-top: 2px solid #06b6d4;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Cyber Glow Effects */
+        .glow-text { text-shadow: 0 0 10px rgba(6, 182, 212, 0.5); }
+        .glow-box:focus-within { box-shadow: 0 0 15px rgba(6, 182, 212, 0.2); }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #06b6d4; }
+    </style>
+</head>
+<body class="text-slate-200 antialiased min-h-screen selection:bg-cyan-500 selection:text-white">
+
+    <!-- ========================================== -->
+    <!--           CONFIGURATION SECTION            -->
+    <!-- ========================================== -->
+    <script>
+        const SUPABASE_URL = 'https://pvqsxrabwtmfgawkbupn.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2cXN4cmFid3RtZmdhd2tidXBuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM5Nzc3NzcsImV4cCI6MjA3OTU1Mzc3N30.Lz43FN_HX5q_vOwC-tTx1bZGo60A6yOBeEw1fBnPLpc';
+    </script>
+    <!-- ========================================== -->
+
+    <!-- NOTIFICATION TOAST -->
+    <div id="toast" class="fixed top-5 right-5 z-50 transform transition-all duration-300 translate-x-full opacity-0">
+        <div id="toast-content" class="bg-slate-800 border-l-4 border-cyan-500 text-cyan-50 rounded-lg shadow-2xl p-4 flex items-center gap-3 min-w-[300px] border border-slate-700">
+            <span id="toast-msg" class="font-medium text-sm font-cyber">Notification</span>
+        </div>
+    </div>
+
+    <!-- VIEW: LOGIN / SIGNUP -->
+    <div id="view-auth" class="min-h-screen flex flex-col items-center justify-center p-4">
+        <div class="mb-8 text-center fade-in">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-slate-800 border border-slate-700 text-cyan-400 mb-4 shadow-[0_0_20px_rgba(6,182,212,0.3)]">
+                <i data-lucide="network" class="w-8 h-8"></i>
+            </div>
+            <h1 class="text-4xl font-bold font-cyber text-white tracking-tighter glow-text">CYBER<span class="text-cyan-400">SHARE</span></h1>
+            <p class="text-cyan-200/60 text-sm mt-2 font-cyber tracking-widest uppercase">Encrypted, for your convenience</p>
+        </div>
+
+        <div class="w-full max-w-md bg-slate-800/80 backdrop-blur-md rounded-xl shadow-2xl border border-slate-700 overflow-hidden fade-in relative">
+            <div class="h-1 w-full bg-gradient-to-r from-cyan-500 via-purple-500 to-cyan-500"></div>
+            <div class="p-8">
+                <div class="flex gap-2 mb-8 bg-slate-900/50 p-1 rounded-lg border border-slate-700/50">
+                    <button onclick="toggleAuth('login')" id="btn-tab-login" class="flex-1 py-2 text-xs font-bold uppercase tracking-wider rounded-md bg-cyan-600 text-white shadow-lg transition-all">Log In</button>
+                    <button onclick="toggleAuth('signup')" id="btn-tab-signup" class="flex-1 py-2 text-xs font-bold uppercase tracking-wider rounded-md text-slate-400 hover:text-white transition-all">Sign Up</button>
+                </div>
+
+                <form onsubmit="handleAuth(event)" class="space-y-5">
+                    <div class="glow-box">
+                        <label class="block text-xs font-cyber text-cyan-500 mb-1.5 ml-1">USER_ID</label>
+                        <div class="relative">
+                            <i data-lucide="mail" class="absolute left-3 top-3 w-5 h-5 text-slate-500"></i>
+                            <input type="email" id="email" required class="w-full pl-10 pr-4 py-3 bg-slate-900 border border-slate-700 rounded-lg focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 focus:outline-none transition-all text-slate-200" placeholder="operative@cybershare.net">
+                        </div>
+                    </div>
+                    <div class="glow-box">
+                        <label class="block text-xs font-cyber text-cyan-500 mb-1.5 ml-1">PASSWORD</label>
+                        <div class="relative">
+                            <i data-lucide="lock" class="absolute left-3 top-3 w-5 h-5 text-slate-500"></i>
+                            <input type="password" id="password" required class="w-full pl-10 pr-4 py-3 bg-slate-900 border border-slate-700 rounded-lg focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 focus:outline-none transition-all text-slate-200" placeholder="••••••••">
+                        </div>
+                    </div>
+                    <button type="submit" id="btn-submit" class="w-full bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-500 hover:to-cyan-600 text-white font-bold font-cyber py-3.5 rounded-lg transition-all shadow-lg flex justify-center items-center gap-2 mt-4 group">
+                        <span class="group-hover:tracking-widest transition-all duration-300">AUTHENTICATE</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW: DASHBOARD -->
+    <div id="view-dashboard" class="hidden min-h-screen flex flex-col">
+        <!-- Navbar -->
+        <nav class="bg-slate-800/80 backdrop-blur-md border-b border-slate-700 sticky top-0 z-20">
+            <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center w-full">
+                <div class="flex items-center gap-3">
+                    <div class="text-cyan-400"><i data-lucide="network" class="w-6 h-6"></i></div>
+                    <span class="text-xl font-bold font-cyber tracking-tight text-white">CYBER<span class="text-cyan-500">SHARE</span></span>
+                </div>
+                <div class="flex items-center gap-4 sm:gap-6">
+                    <div class="text-right hidden sm:block">
+                        <p class="text-[10px] text-cyan-500 font-cyber uppercase tracking-wider">Operative</p>
+                        <p id="user-display" class="text-sm font-bold text-slate-200">user@email.com</p>
+                    </div>
+                    <div id="admin-badge" class="hidden px-2 py-1 bg-purple-500/20 text-purple-400 text-[10px] font-cyber border border-purple-500/50 rounded uppercase">Admin</div>
+                    <button onclick="logout()" class="p-2 text-slate-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors border border-transparent hover:border-red-500/30">
+                        <i data-lucide="power" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="flex-1 max-w-7xl mx-auto w-full p-4 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <!-- LEFT COLUMN: FILES (Span 2 cols) -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Upload Area -->
+                <div class="bg-slate-800 rounded-xl shadow-xl border border-slate-700 p-6 fade-in relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-cyan-500"></div>
+                    <h2 class="text-lg font-bold font-cyber text-cyan-400 mb-4 flex items-center gap-2">
+                        <i data-lucide="upload-cloud" class="w-5 h-5"></i> UPLOAD_PROTOCOL
+                    </h2>
+                    <div class="flex flex-col sm:flex-row gap-4 items-center">
+                        <input type="file" id="file-upload" class="block w-full text-sm text-slate-400 file:mr-4 file:py-3 file:px-6 file:rounded-l-lg file:border-0 file:text-xs file:font-bold file:font-cyber file:bg-slate-900 file:text-cyan-500 hover:file:bg-slate-950 bg-slate-900/50 rounded-lg border border-slate-700 cursor-pointer"/>
+                        <button onclick="uploadFile()" id="btn-upload" class="w-full sm:w-auto bg-cyan-600 hover:bg-cyan-500 text-white font-bold font-cyber py-3 px-8 rounded-lg shadow-lg flex items-center justify-center gap-2 whitespace-nowrap border border-cyan-400/20">
+                            <i data-lucide="upload" class="w-4 h-4"></i> <span>INIT</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- File List -->
+                <div class="bg-slate-800 rounded-xl shadow-xl border border-slate-700 overflow-hidden fade-in min-h-[400px]">
+                    <div class="p-4 border-b border-slate-700 bg-slate-800/50 flex justify-between items-center">
+                        <h3 class="font-bold font-cyber text-slate-300 flex items-center gap-2">
+                            <i data-lucide="database" class="w-4 h-4 text-purple-500"></i> SHARED_DATABASE
+                        </h3>
+                        <button onclick="fetchFiles()" class="text-xs font-bold font-cyber text-cyan-500 hover:text-cyan-300 uppercase tracking-wide flex items-center gap-1 bg-slate-900 px-3 py-1.5 rounded border border-slate-700 hover:border-cyan-500/50 transition-all">
+                            <i data-lucide="refresh-cw" class="w-3 h-3"></i> Sync
+                        </button>
+                    </div>
+                    <div id="file-list" class="divide-y divide-slate-700/50">
+                        <div class="p-16 text-center">
+                            <div class="loader mx-auto mb-4"></div>
+                            <p class="text-slate-500 text-sm font-cyber animate-pulse">ESTABLISHING DATALINK...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: CHAT (Span 1 col) -->
+            <div class="lg:col-span-1 h-[600px] lg:h-auto flex flex-col bg-slate-800 rounded-xl shadow-xl border border-slate-700 fade-in overflow-hidden">
+                <div class="p-4 border-b border-slate-700 bg-slate-800/50">
+                    <h3 class="font-bold font-cyber text-slate-300 flex items-center gap-2">
+                        <i data-lucide="message-square" class="w-4 h-4 text-emerald-500"></i> COMMS_UPLINK
+                    </h3>
+                </div>
+                
+                <!-- Chat Messages -->
+                <div id="chat-box" class="flex-1 overflow-y-auto p-4 space-y-3 bg-slate-900/30">
+                    <div class="text-center text-xs text-slate-600 font-cyber mt-4">--- ENCRYPTED CHANNEL OPEN ---</div>
+                </div>
+
+                <!-- Chat Input -->
+                <div class="p-3 border-t border-slate-700 bg-slate-800">
+                    <form onsubmit="sendMessage(event)" class="flex gap-2">
+                        <input type="text" id="chat-input" placeholder="Type message..." class="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-200 focus:border-emerald-500 focus:outline-none font-cyber placeholder-slate-600">
+                        <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white p-2 rounded-lg transition-colors">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        // --- INITIALIZATION ---
+        let supabase;
+        let authMode = 'login';
+        let isAdmin = false;
+        const BUCKET = 'uni_shares';
+        let currentUser = null;
+
+        window.onload = () => {
+            lucide.createIcons();
+            try {
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                checkSession();
+            } catch (err) {
+                console.error(err);
+                showToast("SYSTEM ERROR: Configuration Failed", true);
+            }
+        };
+
+        // --- AUTH & SETUP ---
+        async function checkSession() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
+                currentUser = session.user;
+                enterDashboard(session.user);
+            } else {
+                document.getElementById('view-dashboard').classList.add('hidden');
+                document.getElementById('view-auth').classList.remove('hidden');
+            }
+        }
+
+        async function enterDashboard(user) {
+            document.getElementById('view-auth').classList.add('hidden');
+            document.getElementById('view-dashboard').classList.remove('hidden');
+            document.getElementById('user-display').innerText = user.email;
+            
+            await checkAdminStatus(user.id);
+            fetchFiles();
+            initChat(); // Start the chat listener
+        }
+
+        async function checkAdminStatus(userId) {
+            const { data } = await supabase.from('admins').select('id').eq('id', userId);
+            if (data && data.length > 0) {
+                isAdmin = true;
+                document.getElementById('admin-badge').classList.remove('hidden');
+            }
+        }
+
+        // --- CHAT LOGIC (REALTIME) ---
+        function initChat() {
+            const chatBox = document.getElementById('chat-box');
+
+            // 1. Subscribe to new messages
+            supabase.channel('public:messages')
+                .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, payload => {
+                    appendMessage(payload.new);
+                })
+                .subscribe();
+
+            // 2. Load existing messages (last 50)
+            loadRecentMessages();
+        }
+
+        async function loadRecentMessages() {
+            const { data, error } = await supabase
+                .from('messages')
+                .select('*')
+                .order('created_at', { ascending: false })
+                .limit(50);
+            
+            if (data) {
+                // Reverse to show oldest first in the list (so bottom is newest)
+                data.reverse().forEach(appendMessage);
+            }
+        }
+
+        function appendMessage(msg) {
+            const chatBox = document.getElementById('chat-box');
+            const isMe = msg.user_id === currentUser.id;
+            const time = new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const name = msg.user_email.split('@')[0];
+
+            const div = document.createElement('div');
+            // If it's a "System" message (e.g. file upload)
+            if (msg.content.startsWith('SYSTEM:')) {
+                div.className = "text-center text-[10px] text-cyan-500 font-cyber my-2";
+                div.innerText = `[${time}] ${msg.content.replace('SYSTEM:', '').trim()}`;
+            } else {
+                div.className = `flex flex-col ${isMe ? 'items-end' : 'items-start'} animate-in slide-in-from-bottom-2 fade-in duration-300`;
+                div.innerHTML = `
+                    <div class="flex items-baseline gap-2 mb-1">
+                        <span class="text-[10px] ${isMe ? 'text-emerald-400' : 'text-purple-400'} font-bold font-cyber uppercase">${name}</span>
+                        <span class="text-[9px] text-slate-600 font-cyber">${time}</span>
+                    </div>
+                    <div class="px-3 py-2 rounded-lg text-xs max-w-[85%] break-words ${isMe ? 'bg-emerald-900/30 text-emerald-100 border border-emerald-500/20' : 'bg-slate-700/50 text-slate-200 border border-slate-600'}">
+                        ${escapeHtml(msg.content)}
+                    </div>
+                `;
+            }
+
+            chatBox.appendChild(div);
+            chatBox.scrollTop = chatBox.scrollHeight; // Auto scroll to bottom
+        }
+
+        async function sendMessage(e) {
+            e.preventDefault();
+            const input = document.getElementById('chat-input');
+            const content = input.value.trim();
+            if (!content) return;
+
+            // Optimistic update (optional, but Realtime is fast enough usually)
+            input.value = '';
+
+            await supabase.from('messages').insert({
+                content: content,
+                user_id: currentUser.id,
+                user_email: currentUser.email
+            });
+        }
+
+        async function sendSystemMessage(text) {
+            await supabase.from('messages').insert({
+                content: `SYSTEM: ${text}`,
+                user_id: currentUser.id,
+                user_email: currentUser.email
+            });
+        }
+
+        // --- FILE LOGIC ---
+        async function uploadFile() {
+            const input = document.getElementById('file-upload');
+            const file = input.files[0];
+            const btn = document.getElementById('btn-upload');
+            
+            if (!file) return showToast("ERROR: No File Selected", true);
+            if (file.size > 50 * 1024 * 1024) return showToast("ERROR: Max 50MB", true);
+
+            btn.disabled = true;
+            btn.innerHTML = '<div class="loader border-t-white border-cyan-900"></div>';
+
+            try {
+                const fileName = `${Date.now()}_${file.name.replace(/\s+/g, '_')}`; 
+                const { error: uploadErr } = await supabase.storage.from(BUCKET).upload(fileName, file);
+                if (uploadErr) throw uploadErr;
+
+                const { data: { publicUrl } } = supabase.storage.from(BUCKET).getPublicUrl(fileName);
+                const { error: dbErr } = await supabase.from('files').insert({
+                    name: file.name, size: file.size, type: file.type, url: publicUrl,
+                    uploader_id: currentUser.id, uploader_email: currentUser.email
+                });
+                if (dbErr) throw dbErr;
+
+                // Notify Chat
+                await sendSystemMessage(`UPLOAD DETECTED: ${file.name}`);
+
+                showToast("UPLOAD COMPLETE", false);
+                input.value = "";
+                fetchFiles();
+
+            } catch (err) {
+                console.error(err);
+                showToast("UPLOAD FAILED: " + err.message, true);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i data-lucide="upload" class="w-4 h-4"></i><span>INIT</span>';
+                lucide.createIcons();
+            }
+        }
+
+        async function fetchFiles() {
+            const list = document.getElementById('file-list');
+            const { data: files, error } = await supabase.from('files').select('*').order('created_at', { ascending: false });
+
+            if (error || !files.length) {
+                list.innerHTML = `<div class="p-16 text-center text-slate-500 font-cyber text-xs">NO DATA FOUND</div>`;
+                return;
+            }
+
+            list.innerHTML = files.map(file => {
+                const isOwner = file.uploader_id === currentUser.id;
+                const canDelete = isOwner || isAdmin;
+                let icon = 'file';
+                let iconColor = 'text-slate-400';
+                
+                if (file.type.includes('image')) { icon = 'image'; iconColor = 'text-purple-400'; }
+                else if (file.type.includes('pdf')) { icon = 'file-text'; iconColor = 'text-red-400'; }
+                else if (file.name.endsWith('.py') || file.name.endsWith('.js') || file.name.endsWith('.html')) { icon = 'code-2'; iconColor = 'text-cyan-400'; }
+
+                return `
+                <div class="group flex items-center p-4 hover:bg-slate-700/30 transition-colors border-l-2 border-transparent hover:border-cyan-500">
+                    <div class="h-10 w-10 rounded-lg bg-slate-900 border border-slate-700 ${iconColor} flex items-center justify-center mr-4 shadow-sm">
+                        <i data-lucide="${icon}" class="w-5 h-5"></i>
+                    </div>
+                    <div class="flex-1 min-w-0 mr-4">
+                        <a href="${file.url}" target="_blank" class="text-sm font-bold text-slate-200 hover:text-cyan-400 font-cyber truncate block transition-colors">${escapeHtml(file.name)}</a>
+                        <div class="flex items-center gap-3 text-[10px] text-slate-500 mt-1 font-cyber uppercase tracking-wide">
+                            <span class="text-cyan-600">${escapeHtml(file.uploader_email.split('@')[0])}</span>
+                            <span class="text-slate-600">|</span>
+                            <span>${formatBytes(file.size)}</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
+                        <a href="${file.url}" download class="p-2 text-slate-400 hover:text-cyan-400 hover:bg-cyan-500/10 rounded-lg transition-all"><i data-lucide="download" class="w-5 h-5"></i></a>
+                        ${canDelete ? `<button onclick="deleteFile('${file.id}', '${file.url}')" class="p-2 text-slate-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all"><i data-lucide="trash-2" class="w-5 h-5"></i></button>` : ''}
+                    </div>
+                </div>`;
+            }).join('');
+            lucide.createIcons();
+        }
+
+        async function deleteFile(id, url) {
+            if(!confirm("CONFIRM DELETION?")) return;
+            const path = url.split(`${BUCKET}/`).pop();
+            await supabase.storage.from(BUCKET).remove([path]);
+            await supabase.from('files').delete().eq('id', id);
+            showToast("FILE PURGED", false);
+            fetchFiles();
+        }
+
+        // --- AUTH & UTILS ---
+        function toggleAuth(mode) {
+            authMode = mode;
+            const btnLogin = document.getElementById('btn-tab-login');
+            const btnSignup = document.getElementById('btn-tab-signup');
+            const submitBtn = document.querySelector('#btn-submit span');
+
+            if (mode === 'login') {
+                btnLogin.className = "flex-1 py-2 text-xs font-bold uppercase tracking-wider rounded-md bg-cyan-600 text-white shadow-lg transition-all";
+                btnSignup.className = "flex-1 py-2 text-xs font-bold uppercase tracking-wider rounded-md text-slate-400 hover:text-white transition-all";
+                submitBtn.innerText = "AUTHENTICATE";
+            } else {
+                btnLogin.className = "flex-1 py-2 text-xs font-bold uppercase tracking-wider rounded-md text-slate-400 hover:text-white transition-all";
+                btnSignup.className = "flex-1 py-2 text-xs font-bold uppercase tracking-wider rounded-md bg-slate-700 text-white shadow-lg transition-all";
+                submitBtn.innerText = "REGISTER ID";
+            }
+        }
+
+        async function handleAuth(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const btn = document.getElementById('btn-submit');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<div class="loader border-t-white border-cyan-900"></div>';
+            btn.disabled = true;
+
+            try {
+                let result = authMode === 'signup' ? await supabase.auth.signUp({ email, password }) : await supabase.auth.signInWithPassword({ email, password });
+                if (result.error) throw result.error;
+                if (authMode === 'signup' && !result.data.session) {
+                    showToast("VERIFY EMAIL UPLINK", false);
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                } else if (result.data.session) {
+                    currentUser = result.data.user;
+                    enterDashboard(currentUser);
+                }
+            } catch (error) {
+                showToast("ACCESS DENIED", true);
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        async function logout() { await supabase.auth.signOut(); window.location.reload(); }
+        function showToast(msg, isError) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').innerText = msg;
+            document.getElementById('toast-content').className = `bg-slate-800 rounded-lg shadow-2xl p-4 flex items-center gap-3 min-w-[300px] border border-slate-700 border-l-4 ${isError ? 'border-l-red-500 text-red-400' : 'border-l-cyan-500 text-cyan-400'}`;
+            toast.classList.remove('translate-x-full', 'opacity-0');
+            setTimeout(() => toast.classList.add('translate-x-full', 'opacity-0'), 3000);
+        }
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 B';
+            const i = Math.floor(Math.log(bytes) / Math.log(1024));
+            return parseFloat((bytes / Math.pow(1024, i)).toFixed(1)) + ' ' + ['B', 'KB', 'MB', 'GB'][i];
+        }
+        function escapeHtml(text) { return text ? text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;") : ''; }
+    </script>
+</body>
+</html>
