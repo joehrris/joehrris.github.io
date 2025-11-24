@@ -320,7 +320,7 @@
 
             if (data && data.length > 0) {
                 isAdmin = true;
-                document.getElementById('admin-badge').classList.remove('hidden');
+                document.getElementById('admin-badge')?.classList.remove('hidden');
                 document.getElementById('admin-btn').classList.remove('hidden');
                 
                 // VISUAL UPDATE: Change "Operative" to "SYSTEM ADMIN"
@@ -349,7 +349,7 @@
                     appendMessage(payload.new);
                 })
                 .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'messages' }, payload => {
-                    // Instantly remove message from UI when deleted
+                    // If the deleted message is currently on screen, remove it
                     const el = document.getElementById(`msg-${payload.old.id}`);
                     if (el) el.remove();
                     
