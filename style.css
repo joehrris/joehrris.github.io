@@ -1,0 +1,773 @@
+/* Import Geist and Geist Mono from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;600&family=Geist:wght@400;600&display=swap');
+
+/* Base Reset */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Geist', sans-serif;
+  background-color: #ffffff;
+}
+
+/* Navigation Container */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 5%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Logo Styling */
+/* Base Logo Styling (Applies to "production") */
+.logo {
+  font-size: 1.25rem;
+  color: #000000;
+  letter-spacing: -0.02em;
+  font-weight: 400; 
+}
+
+/* Bold Portion (Applies to "harris") */
+.logo-bold {
+  font-weight: 600;
+}
+
+/* Center Links */
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 2.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #666666; /* Subtle gray to match the image */
+  font-size: 1rem;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: #000000; /* Darkens on hover for interactivity */
+}
+
+/* Let's Talk Button */
+.btn-talk {
+  background-color: #111111;
+  color: #ffffff;
+  padding: 0.6rem 1.5rem;
+  border-radius: 999px; /* Creates the perfect pill shape */
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-talk:hover {
+  background-color: #333333;
+}
+
+.btn-talk:active {
+  transform: scale(0.98); /* Slight click effect */
+}
+
+/* Basic Mobile Responsiveness */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; /* Hides the center links on mobile for now */
+  }
+}
+
+/* --- Hero Section Layout --- */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  max-width: 1400px;
+  margin: 4rem auto;
+  padding: 0 5%;
+  align-items: center;
+}
+
+/* --- Left Column Content --- */
+.availability-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #f3f4f6;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: #111;
+  border: 1px solid #e5e7eb;
+  margin-bottom: 2rem;
+}
+
+/* The updated green dot with animation */
+.availability-badge .dot {
+  width: 8px;
+  height: 8px;
+  background-color: #22c55e;
+  border-radius: 50%;
+  animation: pulse-green 2s infinite; /* Runs the animation continuously */
+}
+
+/* The pulse animation keyframes */
+@keyframes pulse-green {
+  0% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(34, 197, 94, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 4vw, 4.5rem);
+  line-height: 1.1;
+  margin: 0 0 1.5rem 0;
+  color: #111;
+  letter-spacing: -0.03em;
+}
+
+.hero-desc {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: #6b7280;
+  max-width: 90%;
+  margin-bottom: 2.5rem;
+}
+
+/* --- Buttons --- */
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background-color: #111;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #333;
+}
+
+.btn-secondary {
+  background-color: #fff;
+  color: #111;
+  border: 1px solid #e5e7eb;
+}
+
+.btn-secondary:hover {
+  background-color: #f9fafb;
+}
+
+/* --- Stats Row --- */
+.hero-divider {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin-bottom: 2rem;
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.stat-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.stat-desc {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+/* --- Right Column: Code Card --- */
+.hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.code-card {
+  background-color: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.05);
+}
+
+.window-controls {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.wc {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.wc-red { background-color: #fca5a5; }
+.wc-yellow { background-color: #fde047; }
+.wc-gray { background-color: #9ca3af; }
+
+.code-snippet {
+  margin: 0;
+  font-family: 'Geist Mono', monospace; /* Applying Geist Mono specifically here */
+  font-size: 0.95rem;
+  line-height: 1.8;
+  overflow-x: auto;
+}
+
+/* Syntax Highlighting Colors */
+.tk-const, .tk-string, .tk-bool { color: #111; font-weight: 600; }
+.tk-var, .tk-op, .tk-bracket, .tk-key { color: #6b7280; }
+.tk-num { color: #ef4444; font-weight: 600; }
+.tk-key { margin-left: 1.5rem; } /* Indents the keys inside the object */
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 992px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    margin: 2rem auto;
+  }
+  
+  .hero h1 {
+    font-size: 3rem;
+  }
+  
+  .hero-stats {
+    gap: 1rem;
+  }
+  
+  .stat-title {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-stats {
+    grid-template-columns: 1fr; /* Stack stats on very small screens */
+  }
+}
+
+/* --- Full-width Divider --- */
+.section-divider {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 4rem auto;
+  max-width: 1400px;
+}
+
+/* --- About Section --- */
+.about-section {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 5% 6rem 5%;
+}
+
+/* Constrain text width for better readability */
+.about-content {
+  max-width: 750px; 
+  margin: 0 auto;       /* Centers the content block horizontally */
+  text-align: center;   /* Centers the text inside the block */
+}
+
+.about-content h2 {
+  font-size: clamp(2rem, 3vw, 3rem);
+  line-height: 1.1;
+  color: #111111;
+  letter-spacing: -0.03em;
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+
+.about-content p {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+}
+
+/* Emphasize the bold text in the paragraph */
+.about-content strong {
+  color: #111111;
+  font-weight: 600;
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+  .section-divider {
+    margin: 3rem auto;
+  }
+  
+  .about-section {
+    padding: 1rem 5% 4rem 5%;
+  }
+}
+
+/* --- Work Section Header --- */
+.work-section {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 5% 6rem 5%;
+}
+
+.work-header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 4rem auto;
+}
+
+.work-header h2 {
+  font-size: clamp(2rem, 3vw, 3rem);
+  color: #111111;
+  letter-spacing: -0.03em;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.work-header p {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: #6b7280;
+}
+
+/* --- Work Grid Layout --- */
+.work-grid {
+  display: grid;
+  /* Since you only want 2 cards for now, we use a 2-column grid */
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 2rem;
+}
+
+/* --- Individual Card Styling --- */
+.work-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.work-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.05);
+}
+
+/* Image Placeholder Area */
+/* 1. The Container: This strictly locks the image into the top box */
+.card-image {
+  background-color: #f3f4f6;
+  height: 240px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #e5e7eb;
+  overflow: hidden; /* This is the magic rule! It chops off anything that spills out. */
+  position: relative;
+}
+
+/* 2. The Image: This forces the image to perfectly fill that box without stretching */
+.project-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Forces the image to behave beautifully within the boundaries */
+  display: block;
+}
+
+.placeholder-letter {
+  font-size: 4rem;
+  font-weight: 700;
+  color: #d1d5db; /* Light grey for the letter */
+}
+
+/* Card Text Content */
+.card-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.category {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #111111;
+}
+
+.external-link {
+  color: #6b7280;
+  transition: color 0.2s ease;
+  display: flex;
+}
+
+.external-link:hover {
+  color: #111111;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111111;
+  margin: 0 0 0.5rem 0;
+}
+
+.card-desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #6b7280;
+  margin: 0 0 1.5rem 0;
+  flex-grow: 1;
+}
+
+/* Tags */
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag {
+  background-color: #f3f4f6;
+  color: #374151;
+  font-size: 0.75rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  font-weight: 500;
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+  .work-grid {
+    grid-template-columns: 1fr; /* Stacks the cards on smaller screens */
+  }
+}
+
+/* --- Process Section --- */
+.process-section {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 5% 6rem 5%;
+}
+
+.process-header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 4rem auto;
+}
+
+.process-header h2 {
+  font-size: clamp(2rem, 3vw, 3rem);
+  color: #111111;
+  letter-spacing: -0.03em;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.process-header p {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: #6b7280;
+}
+
+/* --- Process Grid --- */
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3rem;
+}
+
+.process-step {
+  display: flex;
+  flex-direction: column;
+}
+
+.step-number {
+  font-size: 4rem;
+  font-weight: 700;
+  color: #d1d5db; /* Light grey */
+  line-height: 1;
+  margin-bottom: 1rem;
+  font-family: 'Geist Mono', monospace; /* Using your monospace font for stylized numbers */
+}
+
+.process-step h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111111;
+  margin: 0 0 0.75rem 0;
+}
+
+.process-step p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 1024px) {
+  .process-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2x2 grid for tablets */
+    gap: 4rem 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .process-grid {
+    grid-template-columns: 1fr; /* Single column for phones */
+    gap: 3rem;
+  }
+  
+  .process-header {
+    margin-bottom: 3rem;
+  }
+}
+
+/* --- Footer & Contact Section --- */
+.site-footer {
+  max-width: 1400px;
+  margin: 4rem auto 0 auto;
+  padding: 6rem 5% 2rem 5%;
+  border-top: 1px solid #e5e7eb; /* Keeps the separation consistent */
+}
+
+.footer-cta {
+  text-align: center;
+  margin-bottom: 8rem;
+}
+
+.footer-cta h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: #6b7280; /* Subtle grey for the prompt */
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+/* Massive, impactful email link */
+.email-link {
+  font-size: clamp(2rem, 5vw, 4rem); 
+  font-weight: 600;
+  color: #111111;
+  text-decoration: none;
+  letter-spacing: -0.03em;
+  transition: color 0.2s ease;
+  display: inline-block;
+}
+
+/* Container to stack email and phone */
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Phone link styling - slightly smaller but same high-end feel */
+.phone-link {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 500;
+  color: #6b7280; /* Starts a bit lighter than the email */
+  text-decoration: none;
+  font-family: 'Geist Mono', monospace; /* Monospace works great for numbers */
+  letter-spacing: -0.02em;
+  transition: color 0.2s ease;
+}
+
+.phone-link:hover {
+  color: #111111;
+}
+
+/* Ensure the email link stays as the primary focus */
+.email-link {
+  /* Reduced the minimum from 2rem to 1.25rem for mobile */
+  font-size: clamp(1.25rem, 6vw, 4rem); 
+  font-weight: 600;
+  color: #111111;
+  text-decoration: none;
+  letter-spacing: -0.03em;
+  transition: color 0.2s ease;
+  display: inline-block;
+  
+  /* Safety net for long emails on very small screens */
+  inline-size: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+.email-link:hover {
+  color: #6b7280; /* Fades smoothly on hover to indicate it's clickable */
+}
+
+/* Bottom Bar Styling */
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 2rem;
+  border-top: 1px solid #e5e7eb;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.copyright {
+  font-size: 0.85rem;
+  color: #9ca3af;
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 600px) {
+  .site-footer {
+    padding: 4rem 5% 2rem 5%;
+  }
+
+  .footer-cta {
+    margin-bottom: 4rem;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* Overlay Background with Blur */
+.contact-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7); /* Translucent white */
+  backdrop-filter: blur(10px); /* This blurs the content behind the overlay */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 8vh;
+  
+  /* Initial Hidden State */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px); /* Slight lift for the entry animation */
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Active State */
+.contact-overlay.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.overlay-content {
+  background: white;
+  width: 90%;
+  max-width: 550px;
+  padding: 3rem;
+  border-radius: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: #f3f4f6;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #111;
+  transition: background 0.2s;
+}
+
+.close-btn:hover { background: #e5e7eb; }
+
+/* Form Elements */
+.form-header h2 { font-size: 2rem; margin-bottom: 0.5rem; letter-spacing: -0.02em; }
+.form-header p { color: #6b7280; margin-bottom: 2rem; }
+
+.contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+.form-group label { font-weight: 600; font-size: 0.85rem; }
+
+.form-group input, .form-group textarea {
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  font-family: 'Geist', sans-serif;
+  font-size: 1rem;
+}
+
+.btn-submit {
+  background: #111;
+  color: #fff;
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+/* Prevent scroll when form is open */
+body.no-scroll { overflow: hidden; }
