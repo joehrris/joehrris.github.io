@@ -249,33 +249,72 @@
 </div>
 
 <script>
+  // --- 1. UI LOGIC (Opening/Closing) ---
   const overlay = document.getElementById('contact-overlay');
   const closeBtn = document.getElementById('close-form');
-  
-  // Targets "Let's Talk" in Nav, "Start a Conversation" in Hero, and the Footer CTA
   const triggerButtons = document.querySelectorAll('.btn-talk, .btn-primary, .email-link');
 
   triggerButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
-      // If it's the email link in the footer, we only want the form if they click it
-      // but let's assume you want all CTAs to trigger this smooth overlay now
       e.preventDefault();
       overlay.classList.add('is-active');
       document.body.classList.add('no-scroll');
     });
   });
 
-  closeBtn.addEventListener('click', () => {
+  const closeOverlay = () => {
     overlay.classList.remove('is-active');
     document.body.classList.remove('no-scroll');
+  };
+
+  closeBtn.addEventListener('click', closeOverlay);
+
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeOverlay();
   });
 
-  // Close when clicking outside the white box
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) {
-      overlay.classList.remove('is-active');
-      document.body.classList.remove('no-scroll');
-    }
+  // --- 2. SUBMISSION LOGIC (Web3Forms) ---
+  const form = document.getElementById('contact-form');
+  const submitBtn = document.getElementById('submit-btn');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
+
+    submitBtn.innerHTML = "Sending...";
+    submitBtn.disabled = true;
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: json
+    })
+    .then(async (response) => {
+      if (response.status == 200) {
+        submitBtn.innerHTML = "Message Sent!";
+        form.reset();
+        
+        // Wait 2 seconds so they see the success message, then close
+        setTimeout(() => {
+          closeOverlay();
+          submitBtn.innerHTML = "Send Message";
+          submitBtn.disabled = false;
+        }, 2000);
+      } else {
+        submitBtn.innerHTML = "Error. Try again.";
+        submitBtn.disabled = false;
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      submitBtn.innerHTML = "Something went wrong.";
+      submitBtn.disabled = false;
+    });
   });
 </script>
 
