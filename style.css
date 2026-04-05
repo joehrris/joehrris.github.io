@@ -501,6 +501,12 @@ body {
   }
 }
 
+.work-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
 /* --- Process Section --- */
 .process-section {
   max-width: 1400px;
